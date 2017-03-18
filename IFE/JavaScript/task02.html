@@ -23,6 +23,8 @@
         function outputAirquality() 
         {
             var airQuality= '';
+            var aqiDataSort = new Array();
+
             for(var i=0;i<(aqiData.length-1);i++)
             {
                 for(var j=0;j<(aqiData.length-1-i);j++)
@@ -30,14 +32,24 @@
                     if (aqiData[j][1] > aqiData[j+1][1])
                     {
                         var temp = aqiData[j];
-                        aqiData[j] = aqiData[j+1];
+                        aqiData[j] =aqiData[j+1];
                         aqiData[j+1] = temp;
                     }
                 }
             }
-            for (var i=0;i<aqiData.length;i++)
+
+            for(var i=0,j=0;i<aqiData.length;i++)
             {
-                airQuality += '<li>' + "第" + (i+1) + "名：" + aqiData[i] + '<br>' +'</li>';
+                if(aqiData[i][1]>60)
+                {
+                    aqiDataSort[j] = aqiData[i];
+                    j++;
+                }
+            }
+
+            for (var i=0;i<aqiDataSort.length;i++)
+            {
+                airQuality += '<li>' + "第" + (i+1) + "名：" + aqiDataSort[i] + '<br>' +'</li>';
                 document.getElementById("aqi-list").innerHTML = airQuality;
             }
         };
