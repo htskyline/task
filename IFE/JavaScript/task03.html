@@ -85,7 +85,8 @@
         function init() 
         {
             document.getElementById("sort-btn").onclick=function(){  
-                btnHandle();  //  this 指当前发生事件的HTML元素，这里是<div>标签  
+                btnHandle();  //  this 指当前发生事件的HTML元素，这里是<div>标签 
+                document.getElementById("sort-btn").disabled='disabled' 
             }
         }
 
