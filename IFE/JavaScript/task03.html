@@ -1,0 +1,96 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 03</title>
+  </head>
+    <body>
+
+        <ul id="source">
+            <li>北京空气质量：<b>90</b></li>
+            <li>上海空气质量：<b>70</b></li>
+            <li>天津空气质量：<b>80</b></li>
+            <li>广州空气质量：<b>50</b></li>
+            <li>深圳空气质量：<b>40</b></li>
+            <li>福州空气质量：<b>32</b></li>
+            <li>成都空气质量：<b>90</b></li>
+        </ul>
+
+        <ul id="resort">
+
+        </ul>
+
+        <button id="sort-btn">排序</button>
+
+        <script type="text/javascript">
+
+        function getData() 
+        {
+            var x = document.getElementById('source');
+            var dataNumber = x.ownerDocument.getElementsByTagName('b');
+            var dataText = x.ownerDocument.getElementsByTagName('li');
+            var data = new Array();
+            data[0] = new Array();
+            data[1] =new Array();
+            for(var i=0;i<dataNumber.length;i++)
+            {
+                data[0][i]=dataText[i].innerHTML;
+                data[1][i]=dataNumber[i].innerHTML;
+            }
+            return data;
+        }
+
+        function sortAqiData(data) 
+        {
+            var x = document.getElementById('source');
+            var temp = x.ownerDocument.getElementsByTagName('li');
+            for(var i=0;i<(temp.length-1);i++)
+            {
+                for(var j=0;j<(temp.length-1-i);j++)
+                {
+                    if (data[1][j] > data[1][j+1])
+                    {
+                        var swapNumber = data[1][j];
+                        data[1][j] =data[1][j+1];
+                        data[1][j+1] = swapNumber;
+                        var swapText = data[0][j];
+                        data[0][j] =data[0][j+1];
+                        data[0][j+1] = swapText;
+                    }
+                }
+            }
+            return data;
+        }
+
+        function render(data) 
+        {
+            var x = document.getElementById('source');
+            var temp = x.ownerDocument.getElementsByTagName('li');
+            var airQuality = '';
+            for (var i=0;i<temp.length;i++)
+            {
+                airQuality += '<li>'+"第"+(i+1)+"名："+data[0][i]+'</li>';       
+            }
+            document.getElementById('resort').innerHTML = airQuality;
+
+        }
+
+        function btnHandle() 
+        {
+            var aqiData = getData();
+            aqiData = sortAqiData(aqiData);
+            render(aqiData);
+        }
+
+        function init() 
+        {
+            document.getElementById("sort-btn").onclick=function(){  
+                btnHandle();  //  this 指当前发生事件的HTML元素，这里是<div>标签  
+            }
+        }
+
+        init();
+
+        </script>
+    </body>
+</html>
