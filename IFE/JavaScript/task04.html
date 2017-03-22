@@ -24,37 +24,43 @@
     </ul>
 
 <script type="text/javascript">
+    var List = document.getElementById('display');
+    var Num = document.getElementById("numberTemp");
     var numArray = new Array();
     function addLeft()//左侧入
     {
-        var num = document.getElementById("numberTemp").value;
-        if(checkNum(num))
+        if(checkNum(Num.value))
         {
-            numArray.unshift(num);
+            var node=document.createElement("span");
+            var textNode=document.createTextNode(Num.value);
+            node.appendChild(textNode);
+            List.insertBefore(node,List.childNodes[0]);
         }
-        displayArray();
+        delClick();
     }
 
     function addRight()//右侧入
     {
-        var num = document.getElementById("numberTemp").value;
-        if(checkNum(num))
+        if(checkNum(Num.value))
         {
-            numArray.push(num);
+            var node=document.createElement("span");
+            var textNode=document.createTextNode(Num.value);
+            node.appendChild(textNode);
+            List.appendChild(node);
         }
-        displayArray();
+        delClick();
     }
 
     function delLeft()//左侧出
     {
-        numArray.shift();
-        displayArray();
+        alert(List.childNodes[0].innerHTML);
+        List.removeChild(List.childNodes[0]);
     }
 
     function delRight()//右侧出
     {
-        numArray.pop();
-        displayArray();
+        alert(List.lastChild.innerHTML);
+        List.removeChild(List.lastChild);
     }
 
 
@@ -70,33 +76,27 @@
 
     function delClick()//点击元素删除
     {
-        var alis = document.getElementById('display');
-        var lis = alis.getElementsByTagName('span');
-        var lisLength = lis.length;
-        for(var i =0 ;i<lis.length;i++)
+        for (var i = 0; i < List.childNodes.length; i++) 
         {
-            lis[i].index = i;
-            lis[i].onclick = function(){
-            alert(this.index);
-            alis.removeChild(alis.childNodes[this.index-(lisLength-lis.length)]);
-            }
+  	        List.childNodes[i].onclick = function() {
+  	        this.parentNode.removeChild(this);	
+  	        };
         }
     }
         
 
-    function displayArray()//将数组展示在屏幕上
+    /*function displayArray()//将数组展示在屏幕上
     {
-        var aList = document.getElementById("display");
-        document.getElementById('display').innerHTML = "";
+        List.innerHTML = "";
         for(var i=0;i<numArray.length;i++)
         {
             var node=document.createElement("span");
             var textnode=document.createTextNode(numArray[i]);
             node.appendChild(textnode);
-            aList.appendChild(node);
+            List.appendChild(node);
         }
         delClick();
-    }
+    }*/
 </script>
 </body>
 </html>
