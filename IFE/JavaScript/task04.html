@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+    <style>
+        #display span{
+            background: red;
+            padding: 10px;
+            margin: 10px;
+            color: white;
+        }
+    </style>
+  </head>
+<body>
+
+    <input type="text" id="numberTemp">
+    <input type="button" onclick="addLeft()" value="左侧入" />
+    <input type="button" onclick="addRight()" value="右侧入" />
+    <input type="button" onclick="delLeft()" value="左侧出" />
+    <input type="button" onclick="delRight()" value="右侧出" />
+    <ul id="display">
+
+    </ul>
+
+<script type="text/javascript">
+    var numArray = new Array();
+    function addLeft()//左侧入
+    {
+        var num = document.getElementById("numberTemp").value;
+        if(checkNum(num))
+        {
+            numArray.unshift(num);
+        }
+        displayArray();
+    }
+
+    function addRight()//右侧入
+    {
+        var num = document.getElementById("numberTemp").value;
+        if(checkNum(num))
+        {
+            numArray.push(num);
+        }
+        displayArray();
+    }
+
+    function delLeft()//左侧出
+    {
+        numArray.shift();
+        displayArray();
+    }
+
+    function delRight()//右侧出
+    {
+        numArray.pop();
+        displayArray();
+    }
+
+
+    function checkNum(num)//检查输入的数字合法性
+    { 
+    　　if (isNaN(num)) 
+        { 
+    　　　　alert("请输入数字"); 
+    　　　　return false;
+        } 
+        else return true;
+    }
+
+    function delClick()//点击元素删除
+    {
+        var alis = document.getElementById('display');
+        var lis = alis.getElementsByTagName('span');
+        var lisLength = lis.length;
+        for(var i =0 ;i<lis.length;i++)
+        {
+            lis[i].index = i;
+            lis[i].onclick = function(){
+            alert(this.index);
+            alis.removeChild(alis.childNodes[this.index-(lisLength-lis.length)]);
+            }
+        }
+    }
+        
+
+    function displayArray()//将数组展示在屏幕上
+    {
+        var aList = document.getElementById("display");
+        document.getElementById('display').innerHTML = "";
+        for(var i=0;i<numArray.length;i++)
+        {
+            var node=document.createElement("span");
+            var textnode=document.createTextNode(numArray[i]);
+            node.appendChild(textnode);
+            aList.appendChild(node);
+        }
+        delClick();
+    }
+</script>
+</body>
+</html>
