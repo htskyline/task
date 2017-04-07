@@ -2,13 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>IFE JavaScript Task 04</title>
+    <title>IFE JavaScript Task 05</title>
     <style>
         #display span{
             background: red;
-            padding: 10px;
-            margin: 10px;
+            margin: 1px ;
             color: white;
+        }
+        #display{
+            margin-top: 150px;
         }
     </style>
   </head>
@@ -32,11 +34,13 @@
         if(checkNum(Num.value))
         {
             var node=document.createElement("span");
-            var textNode=document.createTextNode(Num.value);
+            var textNode=document.createTextNode("");
             node.appendChild(textNode);
             List.insertBefore(node,List.childNodes[0]);
         }
         delClick();
+        List.childNodes[0].style.padding = Num.value +"px"+" "+10+"px"+" "+10+"px";
+        //改变childNode高度
     }
 
     function addRight()//右侧入
@@ -44,11 +48,13 @@
         if(checkNum(Num.value))
         {
             var node=document.createElement("span");
-            var textNode=document.createTextNode(Num.value);
+            var textNode=document.createTextNode("");
             node.appendChild(textNode);
             List.appendChild(node);
         }
         delClick();
+        List.childNodes[List.childNodes.length-1].style.padding = Num.value +"px"+" "+10+"px"+" "+10+"px";
+        //改变childNode高度
     }
 
     function delLeft()//左侧出
@@ -71,7 +77,26 @@
     　　　　alert("请输入数字"); 
     　　　　return false;
         } 
+        else if(num<10||num>100)
+        {
+            alert("请输入10~100的数字");
+            return false;
+        }
+        else if(checkList())
+        {
+            alert("队列已达60，不可继续增加");
+            return false;
+        }
         else return true;
+    }
+
+    function checkList()
+    {
+        if(List.childNodes.length>60)
+        {
+            return true;
+        }
+        else return false;
     }
 
     function delClick()//点击元素删除
