@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 06</title>
+    <style>
+        #display span{
+            background: red;
+            padding: 10px;
+            margin: 10px;
+            color: white;
+        }
+    </style>
+  </head>
+<body>
+
+    <input type="text" id="numberTemp">
+    <input type="button" onclick="addLeft()" value="左侧入" />
+    <input type="button" onclick="addRight()" value="右侧入" />
+    <input type="button" onclick="delLeft()" value="左侧出" />
+    <input type="button" onclick="delRight()" value="右侧出" />
+    <ul id="display">
+
+    </ul>
+
+<script type="text/javascript">
+    var List = document.getElementById('display');
+    var Num = document.getElementById("numberTemp");
+    var numArray = new Array();
+    function addLeft()//左侧入
+    {
+        if(checkNum(Num.value))
+        {
+            var node=document.createElement("span");
+            var textNode=document.createTextNode(Num.value);
+            node.appendChild(textNode);
+            List.insertBefore(node,List.childNodes[0]);
+        }
+        delClick();
+    }
+
+    function addRight()//右侧入
+    {
+        if(checkNum(Num.value))
+        {
+            var node=document.createElement("span");
+            var textNode=document.createTextNode(Num.value);
+            node.appendChild(textNode);
+            List.appendChild(node);
+        }
+        delClick();
+    }
+
+    function delLeft()//左侧出
+    {
+        alert(List.childNodes[0].innerHTML);
+        List.removeChild(List.childNodes[0]);
+    }
+
+    function delRight()//右侧出
+    {
+        alert(List.lastChild.innerHTML);
+        List.removeChild(List.lastChild);
+    }
+
+
+    function checkNum(num)//检查输入的数字合法性
+    { 
+    　　if (isNaN(num)) 
+        { 
+    　　　　alert("请输入数字"); 
+    　　　　return false;
+        } 
+        else return true;
+    }
+
+    function delClick()//点击元素删除
+    {
+        for (var i = 0; i < List.childNodes.length; i++) 
+        {
+  	        List.childNodes[i].onclick = function() {
+  	        this.parentNode.removeChild(this);	
+  	        };
+        }
+    }
+        
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>html5画布作业</title>
+    </head>
+    <body onload="pageLoading();">
+    
+    <canvas id="myCanvas" style="width:200px;padding:0;margin:100px auto;display:block;">
+    </canvas>
+    
+    <script type="text/javascript">
+    function pageLoading()
+    {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var x = canvas.width/2;//建立画布坐标轴
+        var y = canvas.height/2;
+        var radius = 50;//loading小球转动曲率半径
+        //var r = [3,4,4.5,5,6,7];
+        var loadingRadius = [3.4,5,6.7,8,9,10,11];//loading小球全部的半径
+        //var angle = [10,25,45,65,90,120];
+        var angle = [0,15,30,50,75,105,136];//坐标角度数组
+        var alpha = [0.25,0.35,0.45,0.65,0.8,1];//透明度数组
+
+        setInterval (function drawLoading()
+        {
+            ctx.fillStyle = "white";
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            x1 = [];//loding小球坐标数组
+            y1 = [];
+            for(var i = 0; i < loadingRadius.length; i ++)
+            {
+                if(angle[i] >= 360) angle[i] = 0;//当某个小球一个转动循环过后角度初始为0
+                ctx.beginPath();
+                x1.push( x + radius*Math.cos(angle[i]*Math.PI/180));//弧圆心坐标
+                y1.push( y + radius*Math.sin(angle[i]*Math.PI/180));
+                ctx.arc(x1[i],y1[i],loadingRadius[i],0,2*Math.PI, true);//添加一个弧
+                ctx.closePath();
+                ctx.fillStyle = "rgba(27,184,189,"+alpha[i]+")";//添加的颜色与透明度(此渐变方法是参考他人的)
+                ctx.fill();
+                angle[i] += 5;//当某个小球被画到画布过后角度初始为递增5
+            }
+        },25);
+
+    }
+    </script>
+    
+    </body>
+</html>
